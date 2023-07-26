@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { App } from 'components/App';
+// import { App } from './components/App';
+import App from './components/App';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -8,3 +9,16 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <App />
   </React.StrictMode>
 );
+
+
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+// import { App } from './components/App';
+// import './index.css';
+
+// ReactDOM.render(
+//   <React.StrictMode>
+//     <App />
+//   </React.StrictMode>,
+//   document.getElementById('root')
+// );
