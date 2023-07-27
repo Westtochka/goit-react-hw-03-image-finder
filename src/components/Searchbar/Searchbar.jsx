@@ -14,9 +14,8 @@ export class Searchbar extends Component{
     e.preventDefault();
     const {text} = this.state;
     if(text.trim()===''){
-      toast.error('Wow so easy!');
-      ;
-    }
+      return toast.error('Wow so easy!');
+        }
     // const notify = () => toast("Wow so easy!");
 
     

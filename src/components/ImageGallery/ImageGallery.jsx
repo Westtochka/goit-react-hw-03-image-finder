@@ -1,20 +1,25 @@
 import { Component } from 'react'
-// import {getAllPictures} from '../../api/pictures';
 
 export class ImageGallery extends Component{
 state={
-    pictures: null,
-}
-//     componentDidMount(){ }
-//     getPictures = async()=>{
-// const data= await getAllPictures();
-// console.log(data)
-
-//     }
-
-
+    text:null,
 }
 
-// <ul class="gallery">
-//   <!-- Набір <li> із зображеннями -->
-// </ul>
+/* <ul class="gallery">
+  <!-- Набір <li> із зображеннями -->
+</ul> */
+componentDidUpdate(prevProps, prevState){
+    if(prevProps.text!==this.props.text){ 
+        console.log('Изменился текст инпута!')
+    }
+
+}
+render(){
+    return <div>
+        <h1>ImageGallery</h1>
+        <p>{this.props.text}</p>
+        </div>
+}
+
+}
+
