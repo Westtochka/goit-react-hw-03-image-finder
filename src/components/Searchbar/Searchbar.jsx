@@ -1,29 +1,28 @@
 import { Component } from 'react'
-import {toast} from 'react-toastify'
+// import {toast} from 'react-toastify'
 
 export class Searchbar extends Component{
   state={
         text:'',
   }
+
   handleTextChange=(e)=> {
   e.preventDefault()
   this.setState({text : e.currentTarget.value.toLowerCase()})
+  // console.log(e.currentTarget.value)
 }
   
   handlerSubmit = (e) => {
     e.preventDefault();
     const {text} = this.state;
     if(text.trim()===''){
-      return toast.error('Wow so easy!');
-        }
-    // const notify = () => toast("Wow so easy!");
-
-    
-    // console.log(this.state)
+      alert("Enter new text");     
+       return }
     this.props.onSubmit({text});
     this.setState({
       text:'',
     })
+    
   };
 render(){
     return(
@@ -33,13 +32,11 @@ render(){
 <span class="button-label">🔍</span>
  </button>
 
-  <input
+<input
    class="input"
        type="text"
        name="text"
        value={this.state.text}
-      //  autocomplete="off"
-      //  autofocus
        placeholder="Search images and photos"
        onChange={this.handleTextChange}
      />
