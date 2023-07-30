@@ -25,7 +25,7 @@ render(){
         color: '#010101'
       }}
     >
-      {this.state.hits &&  'Hello'}
+      {/* {this.state.hits &&  'Hello'} */}
    
       <Searchbar 
       onSubmit={this.handleFormSubmit}/>   
