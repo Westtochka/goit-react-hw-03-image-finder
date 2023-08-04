@@ -24,3 +24,30 @@
 
 // }
 // }
+
+
+// import PropTypes from 'prop-types';
+
+
+export const ImageGalleryItem = ({ hits, onImage }) => {
+  return (
+    <>
+      {hits.map(({ id, webformatURL, tags }) => (
+        <li  key={id}>
+          <img
+            src={webformatURL}
+            alt={tags}
+            onClick={() => onImage(webformatURL)}
+          />
+        </li>
+      ))}
+    </>
+  );
+};
+
+// ImageGalleryItem.propTypes = {
+//   id: PropTypes.string,
+//   webformatURL: PropTypes.string,
+//   tags: PropTypes.string,
+//   onImage: PropTypes.func,
+// };
