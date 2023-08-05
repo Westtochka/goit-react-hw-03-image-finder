@@ -47,7 +47,7 @@ fetch(`https://pixabay.com/api/?q=${this.state.text}&page=1&image_type=photo&ori
 .then(data => {const hitsArray = data.hits;
   if(hitsArray.length !==0){
   this.setState({ hits: hitsArray, status:'resolved'}, ()=>{
-    console.log(this.state.hits)});
+    console.log(hitsArray)});
   ;}
   else{
   alert('I am sorry...There are no images for you')}
