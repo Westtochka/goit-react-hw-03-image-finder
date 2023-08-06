@@ -19,7 +19,7 @@ export class Searchbar extends Component{
     if(text.trim()===''){
       alert("Enter new text");     
        return }
-    this.props.onSubmit(this.state);
+    this.props.onSubmit(text);
     this.setState({
       text:'',
     })
