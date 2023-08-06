@@ -64,7 +64,7 @@ fetch(`https://pixabay.com/api/?q=${this.state.text}&page=1&image_type=photo&ori
 }
 
 render(){
-  const {text, hits, }=this.state;
+  const { hits, }=this.state;
 
   // if(status ==='idle'){
   //   return <div>Введите название картинки</div>
