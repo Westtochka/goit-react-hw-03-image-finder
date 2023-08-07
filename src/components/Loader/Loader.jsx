@@ -1,13 +1,17 @@
+import React from 'react';
+import { FallingLines } from 'react-loader-spinner';
 
-import {ImSpinner} from 'react-icons/im'
+
+export const Loader = () => (
+  <div >
+   <FallingLines
+  color="#ccd542"
+  width="100"
+  visible={true}
+  ariaLabel='falling-lines-loading'
+/>
+  </div>
+);
 
 
-export default function Loader(){
-    return (
-        <div role='alert'> 
-        <ImSpinner size="32" className='icon-spin' / >
-            Загружаем...
-        </div>
-       
-    )
-}
+

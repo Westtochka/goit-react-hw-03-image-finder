@@ -2,6 +2,9 @@ import { Component } from 'react';
 import { ImageGallery } from "./ImageGallery/ImageGallery";
 import {Searchbar} from './Searchbar/Searchbar';
 import {ImageGalleryItem} from './ImageGalleryItem/ImageGalleryItem'
+import {Loader} from './Loader/Loader'
+// import {Button} from './Button/Button'
+
 // import {ToastContainer} from 'react-toastify';
 
 class App extends Component{
@@ -9,8 +12,8 @@ class App extends Component{
     text:'',
     hits:[],
     // page: 1,
-    // totalHits: 0,
-    // loading: false,
+    totalHits: 0,
+    loading: false,
     // showModal: false,
     // status: 'idle'
   }
@@ -28,14 +31,15 @@ handleFormSubmit=text=>{console.log(this.state)
 this.setState({text})}
 
 handleImageClick = (imageURL) => {
-  this.setState({ showModal: true, largeImageURL: imageURL });
+  this.setState({ showModal: true, largeImageURL: imageURL }
+    );
 };
-
 
 
 componentDidUpdate(prevProps, prevState){
   if(this.state.text !== prevState.text){ 
   console.log('Изменился текст инпута!')
+  this.setState({ loading: true });
 // this.setState({status: 'pending'})
 fetch(`https://pixabay.com/api/?q=${this.state.text}&page=1&image_type=photo&orientation=horizontal&per_page=12&key=36749422-339c82364b645e4ed63871096`)
 .then(response=>{
@@ -46,12 +50,13 @@ fetch(`https://pixabay.com/api/?q=${this.state.text}&page=1&image_type=photo&ori
 })
 .then(data => {const hitsArray = data.hits;
   if(hitsArray.length !== 0){
-  this.setState({ hits: hitsArray, status:'resolved'}, ()=>{
+  this.setState({ hits: hitsArray, status:'resolved',loading: false}, ()=>{
     console.log(hitsArray)
     console.log(this.state.hits)
   });
   ;}
   else{
+    this.setState({ loading: false });
   alert('I am sorry...There are no images for you')}
 })
 
@@ -66,7 +71,7 @@ fetch(`https://pixabay.com/api/?q=${this.state.text}&page=1&image_type=photo&ori
 }
 
 render(){
-  const { hits }=this.state;
+  const { hits, loading,  }=this.state;
 
   // if(status ==='idle'){
   //   return <div>Введите название картинки</div>
@@ -94,14 +99,12 @@ render(){
           color: '#010101'
         }}
       >
-       
-        {/* {this.state.hits &&  'Hello'} */}
-     
+
         <Searchbar 
         onSubmit={this.handleFormSubmit}/>   
       {hits.length !== 0 && (
           <ImageGallery>
-            <ImageGalleryItem hits={hits}  />
+            <ImageGalleryItem hits={hits} onImage={this.handleImageClick} />
           </ImageGallery>
         )} 
         {/* <ToastContainer/> */}
@@ -110,22 +113,11 @@ render(){
         {/* <Loader/>
         {this.state.hits &&  <Button/>}     
         <Modal/> */}
-         {/* <header >
-  <form class="form" onSubmit={this.handlerSubmit}>
-   <button type="submit" class="button">
-  <span class="button-label">🔍</span>
-   </button>
-  
-  <input
-     class="input"
-         type="text"
-         name="text"
-         value={text}
-         placeholder="Search images and photos"
-         onChange={this.handleTextChange}
-       />
-     </form>
-   </header>    */}
+          {loading && <Loader />}
+        {/* {totalHits > 0 && hits.length < totalHits && (
+          <Button onBtnClick={this.buttonLoadClick} 
+          />
+        )}  */}
   
       {/* <ul>
         {hits.map(hit => (

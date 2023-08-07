@@ -29,12 +29,14 @@
 // import PropTypes from 'prop-types';
 
 
-export const ImageGalleryItem = ({ hits }) => {
+export const ImageGalleryItem = ({ hits, onImage }) => {
   return (
     <>    
            {hits.map(hit => (
           <li key={hit.id}>
-            <img src={hit.previewURL} alt={hit.tags} />
+            <img src={hit.previewURL} alt={hit.tags} 
+             onClick={() => onImage(hit.webformatURL)
+          }/>
           </li>
                 ))}
       
