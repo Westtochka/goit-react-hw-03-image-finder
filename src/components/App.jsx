@@ -8,11 +8,11 @@ class App extends Component{
   state={
     text:'',
     hits:[],
-    page: 1,
-    totalHits: 0,
-    loading: false,
-    showModal: false,
-    status: 'idle'
+    // page: 1,
+    // totalHits: 0,
+    // loading: false,
+    // showModal: false,
+    // status: 'idle'
   }
 
   handlerSubmit = (e) => {
@@ -45,9 +45,11 @@ fetch(`https://pixabay.com/api/?q=${this.state.text}&page=1&image_type=photo&ori
   return Promise.reject(new Error('нет такого изображения'));
 })
 .then(data => {const hitsArray = data.hits;
-  if(hitsArray.length !==0){
+  if(hitsArray.length !== 0){
   this.setState({ hits: hitsArray, status:'resolved'}, ()=>{
-    console.log(hitsArray)});
+    console.log(hitsArray)
+    console.log(this.state.hits)
+  });
   ;}
   else{
   alert('I am sorry...There are no images for you')}
@@ -64,7 +66,7 @@ fetch(`https://pixabay.com/api/?q=${this.state.text}&page=1&image_type=photo&ori
 }
 
 render(){
-  const { hits, }=this.state;
+  const { hits }=this.state;
 
   // if(status ==='idle'){
   //   return <div>Введите название картинки</div>
@@ -97,9 +99,9 @@ render(){
      
         <Searchbar 
         onSubmit={this.handleFormSubmit}/>   
-       {hits.length !== 0 && (
+      {hits.length !== 0 && (
           <ImageGallery>
-            <ImageGalleryItem hits={hits} onImage={this.handleImageClick} />
+            <ImageGalleryItem hits={hits}  />
           </ImageGallery>
         )} 
         {/* <ToastContainer/> */}
@@ -125,13 +127,13 @@ render(){
      </form>
    </header>    */}
   
-      <ul>
+      {/* <ul>
         {hits.map(hit => (
           <li key={hit.id}>
             <img src={hit.previewURL} alt={hit.tags} />
           </li>
                 ))}
-      </ul>  
+      </ul>   */}
       </div>
        )
   
