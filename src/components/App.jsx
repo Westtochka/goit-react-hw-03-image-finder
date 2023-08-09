@@ -3,7 +3,8 @@ import { ImageGallery } from "./ImageGallery/ImageGallery";
 import {Searchbar} from './Searchbar/Searchbar';
 import {ImageGalleryItem} from './ImageGalleryItem/ImageGalleryItem'
 import {Loader} from './Loader/Loader'
-// import {Button} from './Button/Button'
+import Button from './Button/Button'
+import Modal from './Modal/Modal'
 
 // import {ToastContainer} from 'react-toastify';
 
@@ -11,11 +12,11 @@ class App extends Component{
   state={
     text:'',
     hits:[],
-    // page: 1,
+    page: 1,
     totalHits: 0,
     loading: false,
-    // showModal: false,
-    // status: 'idle'
+    showModal: false,
+    status: 'idle'
   }
 
   handlerSubmit = (e) => {
@@ -33,6 +34,12 @@ this.setState({text})}
 handleImageClick = (imageURL) => {
   this.setState({ showModal: true, largeImageURL: imageURL }
     );
+};
+handleModalClick = () => {
+  this.setState({ showModal: false, largeImageURL: '' });
+};
+buttonLoadClick = () => {
+  this.setState(prevState => ({ page: prevState.page + 1 }));
 };
 
 
@@ -60,18 +67,16 @@ fetch(`https://pixabay.com/api/?q=${this.state.text}&page=1&image_type=photo&ori
   alert('I am sorry...There are no images for you')}
 })
 
-
 // this.setState({ hits: hitsArray, status: 'resolved' }, () => {
 //   console.log('Updated state:', this.state.hits);
 // });
 
-
-.catch(error => this.setState({status:'rejected'}));
+.catch(error => this.setState({status:'rejected' , loading: false}))
 }
 }
 
 render(){
-  const { hits, loading,  }=this.state;
+  const { hits, loading, largeImageURL, showModal, totalHits  }=this.state;
 
   // if(status ==='idle'){
   //   return <div>Введите название картинки</div>
@@ -108,24 +113,16 @@ render(){
           </ImageGallery>
         )} 
         {/* <ToastContainer/> */}
-        {/* <ImageGallery /> */}
-        {/* <ImageGalleryItem text={this.state.text}/>  */}
-        {/* <Loader/>
-        {this.state.hits &&  <Button/>}     
-        <Modal/> */}
-          {loading && <Loader />}
-        {/* {totalHits > 0 && hits.length < totalHits && (
+        {loading && <Loader />}
+        {totalHits > 0 && hits.length < totalHits && (
           <Button onBtnClick={this.buttonLoadClick} 
           />
-        )}  */}
-  
-      {/* <ul>
-        {hits.map(hit => (
-          <li key={hit.id}>
-            <img src={hit.previewURL} alt={hit.tags} />
-          </li>
-                ))}
-      </ul>   */}
+        )} 
+       {showModal && (
+          <Modal onClose={this.handleModalClick}>
+            <img src={largeImageURL} alt="Modal" />
+          </Modal>
+        )}
       </div>
        )
   
