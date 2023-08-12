@@ -19,15 +19,19 @@ class App extends Component{
     status: 'idle'
   }
 
-  handlerSubmit = (e) => {
+  handlerSubmit = e => {
     e.preventDefault();
     const {text} = this.state;
     if(text.trim()===''){
       alert("Enter new text");     
       return 
     }
-    this.setState({text:'',})
-  };
+    this.setState({text:'',
+    // hits: [], page: 1, totalHits: 0
+  })
+  }
+
+
 handleFormSubmit=text=>{console.log(this.state)
 this.setState({text})}
 
@@ -44,39 +48,50 @@ buttonLoadClick = () => {
 
 
 componentDidUpdate(prevProps, prevState){
-  if(this.state.text !== prevState.text){ 
+  const { text,   } = this.state;
+  if(text !== prevState.text){ 
   console.log('Изменился текст инпута!')
   this.setState({ loading: true });
-// this.setState({status: 'pending'})
-fetch(`https://pixabay.com/api/?q=${this.state.text}&page=1&image_type=photo&orientation=horizontal&per_page=12&key=36749422-339c82364b645e4ed63871096`)
+  this.setState({status: 'pending'})
+fetch(`https://pixabay.com/api/?q=${text}&page=1&image_type=photo&orientation=horizontal&per_page=12&key=36749422-339c82364b645e4ed63871096`)
 .then(response=>{
   if (response.ok) {
     return response.json();
   }
   return Promise.reject(new Error('нет такого изображения'));
 })
-.then(data => {const hitsArray = data.hits;
-  if(hitsArray.length !== 0){
-  this.setState({ hits: hitsArray, status:'resolved',loading: false}, ()=>{
-    console.log(hitsArray)
-    console.log(this.state.hits)
-  });
-  ;}
-  else{
+
+.then(data => {
+  const hitsArray = data.hits;
+  if (hitsArray.length !== 0) {
+    this.setState(prevState => ({
+      hits: [...prevState.hits, ...hitsArray],
+      status: 'resolved',
+      loading: false
+    }));
+  } else {
     this.setState({ loading: false });
-  alert('I am sorry...There are no images for you')}
+    alert('I am sorry...There are no images for you');
+  }
 })
+// this.setState(prevState => ({
+//   hits: [...prevState.hits, ...this.state.hits],
+//   // totalHits: data.totalHits,
+//   loading: false,
+// })
+// )
 
-// this.setState({ hits: hitsArray, status: 'resolved' }, () => {
-//   console.log('Updated state:', this.state.hits);
-// });
-
-.catch(error => this.setState({status:'rejected' , loading: false}))
+.catch(error => {
+  console.error(error);
+  this.setState({ 
+    status: 'rejected', 
+    loading: false });
+});
 }
 }
 
 render(){
-  const { hits, loading, largeImageURL, showModal, totalHits  }=this.state;
+  const { hits, loading, largeImageURL, showModal, totalHits}=this.state;
 
   // if(status ==='idle'){
   //   return <div>Введите название картинки</div>
