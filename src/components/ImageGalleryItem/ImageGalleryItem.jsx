@@ -1,4 +1,5 @@
 import styles from './ImageGalleryItem.module.css'
+import PropTypes from 'prop-types';
 
 export const ImageGalleryItem = ({ hits, onImage }) => {
   return (
@@ -15,9 +16,9 @@ export const ImageGalleryItem = ({ hits, onImage }) => {
   );
 };
 
-// ImageGalleryItem.propTypes = {
-//   id: PropTypes.string,
-//   webformatURL: PropTypes.string,
-//   tags: PropTypes.string,
-//   onImage: PropTypes.func,
-// };
+ImageGalleryItem.propTypes = {
+  id: PropTypes.string,
+  webformatURL: PropTypes.string,
+  tags: PropTypes.string,
+  onImage: PropTypes.func,
+};

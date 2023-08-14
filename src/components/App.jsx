@@ -6,7 +6,7 @@ import {Loader} from './Loader/Loader'
 import Button from './Button/Button'
 import Modal from './Modal/Modal'
 
-// import {ToastContainer} from 'react-toastify';
+import {ToastContainer} from 'react-toastify';
 
 class App extends Component{
   state={
@@ -18,21 +18,6 @@ class App extends Component{
     showModal: false,
     // status: 'idle'
   }
-
-  // handlerSubmit = e => {
-  //   e.preventDefault();
-  //   const {text} = this.state;
-  //   if(text.trim()===''){
-  //     alert("Enter new text");   
-  // console.log('hh')  
-  //     return 
-  //   }
-  //   this.setState({text:'' }
-    
-  // )
-  // console.log('hh')
-  // }
-
 
 handleFormSubmit=text=>{
 this.setState({
@@ -51,8 +36,6 @@ handleImageClick = (imageURL) => {
 };
 handleModalClick = () => {
   this.setState({ showModal: false, largeImageURL: '' });
-  // console.log(this.state.showModal)
-  // console.log(this.state.totalHits)
 };
 buttonLoadClick = () => {
   this.setState((prevState) => ({
@@ -95,6 +78,7 @@ componentDidUpdate(prevProps, prevState){
         } else {
           this.setState({ loading: false });
           alert('I am sorry...There are no images for you');
+      //  toast("Wow so easy!");
         }
       })
       .catch(error => {
@@ -124,17 +108,11 @@ render(){
 
     return (<div
         style={{
-          // height: '100vh',
-          // display: 'flex',
-          // justifyContent: 'center',
-          // alignItems: 'center',
-          // fontSize: 40,
-          // color: '#010101'
           display: 'grid',
           gridTemplateColumns: '1fr',
           gridGap: '16px',
           paddingBottom: '24px',
-        }}
+              }}
       >
 
         <Searchbar 
@@ -144,7 +122,7 @@ render(){
             <ImageGalleryItem hits={hits} onImage={this.handleImageClick} />
           </ImageGallery>
         )} 
-        {/* <ToastContainer/> */}
+        <ToastContainer/>
         {loading && <Loader />}
         {totalHits >= 0 && hits.length < totalHits && (
           <Button onBtnClick={this.buttonLoadClick} 
@@ -157,9 +135,7 @@ render(){
         )}
       </div>
        )
-  
-
-
+ 
  }
 
 }

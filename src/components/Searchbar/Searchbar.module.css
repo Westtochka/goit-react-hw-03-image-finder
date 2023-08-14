@@ -1,17 +1,12 @@
 .searchbar {
     top: 0;
     width: 100%;
-    /* left: 0; */
     position: relative;
     z-index: 1100;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 50px;
-    /* padding-right: 24px;
-    padding-left: 24px;
-    padding-top: 12px;
-    padding-bottom: 12px; */
     color: #fff;
     background: linear-gradient(to left, #278cf1, #93e33c);
     border-bottom: blur(10px);
@@ -39,8 +34,7 @@
     transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     outline: none;
-    /* background-color: #ffc551; */
-  }
+    }
   
   .searchFormButton:hover {
     opacity: 1;
