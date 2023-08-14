@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import styles from './Modal.module.css';
 
 class Modal extends Component {
   componentDidMount() {
@@ -24,8 +25,8 @@ class Modal extends Component {
 
   render() {
     return (
-      <div onClick={this.handleBackdpropClick}>
-        <div>{this.props.children}</div>
+      <div className={styles.overlay} onClick={this.handleBackdpropClick}>
+        <div className={styles.modal}>{this.props.children}</div>
       </div>
     );
   }
@@ -33,9 +34,9 @@ class Modal extends Component {
 
 export default Modal;
 
-// Modal.propTypes = {
-//   url: PropTypes.string,
-//   alt: PropTypes.string,
-//   handleBackdpropClick: PropTypes.func,
-// };
+Modal.propTypes = {
+  url: PropTypes.string,
+  alt: PropTypes.string,
+  handleBackdpropClick: PropTypes.func,
+};
 

@@ -1,8 +1,10 @@
+import styles from './ImageGalleryItem.module.css'
+
 export const ImageGalleryItem = ({ hits, onImage }) => {
   return (
     <>    
            {hits.map(hit => (
-          <li key={hit.id}>
+          <li className={styles.galeryItem} key={hit.id}>
             <img src={hit.previewURL} alt={hit.tags} 
              onClick={() => onImage(hit.webformatURL)
           }/>

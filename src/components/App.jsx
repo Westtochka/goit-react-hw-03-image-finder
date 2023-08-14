@@ -44,15 +44,15 @@ this.setState({
 }
 
 handleImageClick = (imageURL) => {
-  this.setState({ showModal: true, largeImageURL: imageURL }
+  this.setState({ showModal: !this.state.showModal, largeImageURL: imageURL }
     );
     console.log(this.state.showModal)
     console.log(this.state.totalHits)
 };
 handleModalClick = () => {
   this.setState({ showModal: false, largeImageURL: '' });
-  console.log(this.state.showModal)
-  console.log(this.state.totalHits)
+  // console.log(this.state.showModal)
+  // console.log(this.state.totalHits)
 };
 buttonLoadClick = () => {
   this.setState((prevState) => ({
@@ -83,7 +83,7 @@ componentDidUpdate(prevProps, prevState){
       .then(data => {
         const hitsArray = data.hits.map(hit => ({
           ...hit,
-          id: hit.id + page, // Генерируем уникальный ключ для новых элементов hits
+          id: hit.id + page,
         }));
         console.log(`You have ${data.totalHits} images`)
         if (hitsArray.length !== 0) {
@@ -125,7 +125,7 @@ render(){
     return (<div
         style={{
           height: '100vh',
-          display: 'flex',
+          // display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           fontSize: 40,
@@ -154,21 +154,6 @@ render(){
       </div>
        )
   
-
-////////////
-// openModal = (imageURL) => {
-//   this.setState({ isModalOpen: true, largeImageURL: imageURL });
-// };
-
-// handleModalClick = () => {
-//   this.setState({ showModal: false, largeImageURL: '' });
-//   console.log(this.state.showModal)
-//   console.log(this.state.totalHits)
-// };
-/////////////
-
-
-
 
 
  }
